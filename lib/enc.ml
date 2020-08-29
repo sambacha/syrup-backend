@@ -53,7 +53,18 @@ let force_instrs_in_tgt params =
   let force_instr iota = disj (List.init params.n ~f:(fun j -> instr iota == mk_t j)) in
   conj (List.map params.instrs_in_tgt ~f:force_instr)
 
-let enc_block params =
+let force_instrs_in_tgt_at_most_once params =
+  let instr iota = num (Params.instr_to_int params iota) in
+  let open Z3Ops in
+  let idxs_without j =
+    List.range ~start:`inclusive ~stop:`exclusive 0 j @
+    List.range ~start:`exclusive ~stop:`exclusive j params.n
+  in
+  let not_at_others iota j = conj (List.map (idxs_without j) ~f:(fun j' -> ~!(instr iota == mk_t j'))) in
+  let max_one_slot iota = conj (List.init params.n ~f:(fun j -> (instr iota == mk_t j) ==> not_at_others iota j)) in
+  conj (List.map params.instrs_in_tgt ~f:max_one_slot)
+
+let enc_block ?rm_tgt_instr:(rm_tgt_instr = false) ?add_tgt_instr:(add_tgt_instr=false) params =
   let source_sk = sk_init params.k 0 params.src_ws in
   let target_sk = sk_init params.k params.n params.tgt_ws in
   let ns = List.range ~start:`inclusive ~stop:`exclusive 0 params.n in
@@ -62,7 +73,8 @@ let enc_block params =
   conj (List.map ns ~f:(pick_instr params))
   && nop_propagate params
   && bounds_push_args params
-  && force_instrs_in_tgt params
+  && (if rm_tgt_instr then top else force_instrs_in_tgt params)
+  && (if add_tgt_instr then force_instrs_in_tgt_at_most_once params else top)
 
 let pick_from params instrs j =
   let enc_to_int iota = num (instr_to_int params iota) in
