@@ -153,19 +153,8 @@ install_ppa () {
 install_on_freebsd () {
   case "$OCAML_VERSION" in
     3.12) OCAML_FULL_VERSION=3.12.1; install_opam2 ;;
-    4.00) OCAML_FULL_VERSION=4.00.1; install_opam2 ;;
-    4.01) OCAML_FULL_VERSION=4.01.0; install_opam2 ;;
-    4.02) OCAML_FULL_VERSION=4.02.3; install_opam2 ;;
-    4.03) OCAML_FULL_VERSION=4.03.0; install_opam2 ;;
-    4.04) OCAML_FULL_VERSION=4.04.2; install_opam2 ;;
-    4.05) OCAML_FULL_VERSION=4.05.0; install_opam2 ;;
-    4.06) OCAML_FULL_VERSION=4.06.1; install_opam2 ;;
-    4.07) OCAML_FULL_VERSION=4.07.1; install_opam2 ;;
-    4.08) OCAML_FULL_VERSION=4.08.1; install_opam2 ;;
-    4.09) OCAML_FULL_VERSION=4.09.1; install_opam2 ;;
     4.10) OCAML_FULL_VERSION=4.10.1; install_opam2 ;;
     4.11) OCAML_FULL_VERSION=4.11.0; install_opam2 ;;
-    4.12) OCAML_FULL_VERSION=4.12.0+trunk; OCAML_BETA=enable; install_opam2 ;;
     *)
         if [ "$OCAML_BETA" != "enable" ]; then
             echo "Unknown OCAML_VERSION=$OCAML_VERSION"
@@ -181,19 +170,8 @@ install_on_freebsd () {
 install_on_linux () {
   case "$OCAML_VERSION" in
     3.12) OCAML_FULL_VERSION=3.12.1; install_opam2 ;;
-    4.00) OCAML_FULL_VERSION=4.00.1; install_opam2 ;;
-    4.01) OCAML_FULL_VERSION=4.01.0; install_opam2 ;;
-    4.02) OCAML_FULL_VERSION=4.02.3; install_opam2 ;;
-    4.03) OCAML_FULL_VERSION=4.03.0; install_opam2 ;;
-    4.04) OCAML_FULL_VERSION=4.04.2; install_opam2 ;;
-    4.05) OCAML_FULL_VERSION=4.05.0; install_opam2 ;;
-    4.06) OCAML_FULL_VERSION=4.06.1; install_opam2 ;;
-    4.07) OCAML_FULL_VERSION=4.07.1; install_opam2 ;;
-    4.08) OCAML_FULL_VERSION=4.08.1; install_opam2 ;;
-    4.09) OCAML_FULL_VERSION=4.09.1; install_opam2 ;;
     4.10) OCAML_FULL_VERSION=4.10.1; install_opam2 ;;
     4.11) OCAML_FULL_VERSION=4.11.0; install_opam2 ;;
-    4.12) OCAML_FULL_VERSION=4.12.0+trunk; OCAML_BETA=enable; install_opam2 ;;
     *)
         if [ "$OCAML_BETA" != "enable" ]; then
             echo "Unknown OCAML_VERSION=$OCAML_VERSION"
@@ -249,22 +227,8 @@ install_on_osx () {
   esac
   case "$OCAML_VERSION" in
     3.12) OCAML_FULL_VERSION=3.12.1; install_opam2 ;;
-    4.00) OCAML_FULL_VERSION=4.00.1; install_opam2 ;;
-    4.01) OCAML_FULL_VERSION=4.01.0; install_opam2 ;;
-    4.02) OCAML_FULL_VERSION=4.02.3; install_opam2 ;;
-    4.03) OCAML_FULL_VERSION=4.03.0; install_opam2 ;;
-    4.04) OCAML_FULL_VERSION=4.04.2; install_opam2 ;;
-    4.05) OCAML_FULL_VERSION=4.05.0; install_opam2 ;;
-    4.06) OCAML_FULL_VERSION=4.06.1; install_opam2 ;;
-    4.07) OCAML_FULL_VERSION=4.07.1; install_opam2 ;;
-    4.08) OCAML_FULL_VERSION=4.08.1; install_opam2 ;;
-    4.09) OCAML_FULL_VERSION=4.09.0;
-          OPAM_SWITCH=${OPAM_SWITCH:-ocaml-system};
-          brew install ocaml;
-          install_opam2 ;;
     4.10) OCAML_FULL_VERSION=4.10.1; install_opam2 ;;
     4.11) OCAML_FULL_VERSION=4.11.0; install_opam2 ;;
-    4.12) OCAML_FULL_VERSION=4.12.0+trunk; OCAML_BETA=enable; install_opam2 ;;
     *)
         if [ "$OCAML_BETA" != "enable" ]; then
             echo "Unknown OCAML_VERSION=$OCAML_VERSION"
