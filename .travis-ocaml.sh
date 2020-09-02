@@ -64,6 +64,11 @@ if [ "${INSTALL_LOCAL+x}" = x ] ; then
     exit 1
   fi
 
+  if [ "${OPAM_SWITCH:=ocaml-system}" != ocaml-system ] ; then
+    echo "INSTALL_LOCAL requires OPAM_SWITCH=ocaml-system (or unset/null)"
+    exit 1
+  fi
+fi
 
 # the base opam repository to use for bootstrapping and catch-all namespace
 BASE_REMOTE=${BASE_REMOTE:-git://github.com/ocaml/opam-repository}
@@ -245,17 +250,31 @@ if [ "$OCAML_BETA" = "enable" ]; then
     ocaml_package=ocaml-variants
 fi
 
+OPAM_SWITCH=${OPAM_SWITCH:-$ocaml_package.$OCAML_FULL_VERSION}
+
+PACKAGES="$OPAM_SWITCH"
+case "$OCAML_VERSION" in
+  3.12|4.00|4.01|4.02|4.03|4.04|4.05|4.06)
+    PACKAGES="$PACKAGES,ocaml-secondary-compiler";;
+esac
+
 export OPAMYES=1
 
 case $OPAM_INIT in
   true)
       opam init -a --bare "$BASE_REMOTE"
+      opam_repo_selection=
+      if [ "$OCAML_BETA" = "enable" ]; then
+          opam repo add --dont-select beta git://github.com/ocaml/ocaml-beta-repository.git
+          opam_repo_selection="--repo=default,beta"
+      fi
+      opam switch "$OPAM_SWITCH" || opam switch create $opam_repo_selection "$OPAM_SWITCH" --packages="$PACKAGES"
       eval $(opam config env)
       ;;
 esac
 
 echo OCAML_VERSION=$OCAML_VERSION >  .travis-ocaml.env
-
+echo OPAM_SWITCH=$OPAM_SWITCH     >> .travis-ocaml.env
 
 # Temporary fix an issue with opam-depext < 1.1.3 on FreeBSD.
 # See https://github.com/ocaml/opam-depext/pull/123
