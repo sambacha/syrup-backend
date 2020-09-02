@@ -1,0 +1,13 @@
+dist: bionic
+
+language: c
+
+install: test -e .travis-ocaml.sh || wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-opam.sh
+script: bash -ex .travis-ocaml.sh
+env:
+  - OCAML_VERSION=4.10
+os:
+  - linux
+arch:
+  - amd64
+after-script: sh seriesci.sh

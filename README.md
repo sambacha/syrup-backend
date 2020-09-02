@@ -1,5 +1,9 @@
 # `syrup_backend`
 
+[![Build Status](https://travis-ci.com/sambacha/syrup-backend.svg?branch=master)](https://travis-ci.com/sambacha/syrup-backend) <br>
+
+## Overivew 
+
 This is a prototype implementation of the backend of the `syrup` tool
   chain presented in
 
@@ -55,4 +59,8 @@ Max-SMT solvers supported by `syrup_backend` are
 For each of these solvers, `syrup_backend` can `-write-only` an SMT
 encoding. When given a `-path` to the executable of the respective
 solver, `syrup_backend` calls the solver directly.
+
+## Notes
+
+see `.scripts`
 
