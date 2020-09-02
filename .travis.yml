@@ -6,7 +6,6 @@ install: test -e .travis-ocaml.sh || wget https://raw.githubusercontent.com/ocam
 script: bash -ex .travis-ocaml.sh
 env:
   - OCAML_VERSION=4.10
-  - OCAML_VERSION=4.12
 os:
   - linux
 arch:
